@@ -1151,7 +1151,7 @@ void *gameRender(void* arg){
 					bottomClock.SetText("Unlimited");
 					topClock.SetText("Unlimited");
 				}
-				if (deltaTime >= 0 && !unlimitedTime){
+				if (wtime - deltaTime >= 0 && btime - deltaTime >= 0 && !unlimitedTime){
 					std::string wTimeStr = formatTime(wtime - (deltaTime * whitesTurn)); // if black's turn, whitesTurn = false = 0 making this just wtime
 					std::string bTimeStr = formatTime(btime - (deltaTime * !whitesTurn)); // if white's turn, !whitesTurn = false = 0, making this just btime 
 					if (curColor){ // (case where user is white pieces)
@@ -1479,6 +1479,7 @@ void boardCallback(std::string data){
 	ResumeGui();
 	// else if rollercoaster incoming!!!
 	if (status == "resign"){
+		wtime = 0; // stops counter
 		notifySnd.Stop();
 		notifySnd.Play();
 		std::string boxmsg;
@@ -1497,6 +1498,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "mate"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		std::string boxmsg;
@@ -1515,6 +1517,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "draw"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		int res = WindowPrompt("Draw", "The game ended in a draw.", "Return to Loader", "Main Menu");
@@ -1526,6 +1529,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "aborted" || status == "noStart"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		int res = WindowPrompt("Game Over", "The game was aborted.", "Return to Loader", "Main Menu");
@@ -1537,6 +1541,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "timeout"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		int res = WindowPrompt("Game Over", "Your opponent abandoned the game.", "Return to Loader", "Main Menu");
@@ -1548,6 +1553,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "outoftime"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		std::string boxmsg = std::string(doc["winner"].GetString()) + " won on time.";
@@ -1560,6 +1566,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "stalemate"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		int res = WindowPrompt("Game Over", "Draw by stalemate.", "Return to Loader", "Main Menu");
@@ -1571,6 +1578,7 @@ void boardCallback(std::string data){
 		}
 		return;
 	} else if (status == "cheat"){
+		wtime = 0;
 		notifySnd.Stop();
 		notifySnd.Play();
 		int res = WindowPrompt("Game Over", "Cheat Detected. (probably the opponent)", "Return to Loader", "Main Menu");
