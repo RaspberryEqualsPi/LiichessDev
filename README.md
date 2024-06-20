@@ -51,3 +51,19 @@ Compile:
 
 Finally, after the compilation has finished you should be left with the resulting **liichess.dol**.
 
+
+## Screenshots
+
+*A game in play*
+![App Screenshot](https://i.imgur.com/9eSAisb.png)
+
+*The main menu*
+![App Screenshot](https://i.imgur.com/MQMY47D.png)
+
+*Creating a challenge*
+![App Screenshot](https://i.imgur.com/4hfPP9O.png)
+
+*The sign in screen*
+![App Screenshot](https://i.imgur.com/VMXNI6h.png)
+
+
