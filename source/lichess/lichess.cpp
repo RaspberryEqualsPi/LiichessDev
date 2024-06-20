@@ -310,7 +310,7 @@ namespace lichess{
             curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
             curl_easy_setopt(curl, CURLOPT_URL, url.c_str());
             curl_easy_setopt(curl, CURLOPT_POST, 1L);
-            std::string postdata = "rated=" + std::string((rated) ? "true" : "false") + "&clock.limit=" + std::to_string(timeCtrl * 60) + "&clock.increment" = std::to_string(inc) + "&variant=standard";
+            std::string postdata = "rated=" + std::string((rated) ? "true" : "false") + "&clock.limit=" + std::to_string(timeCtrl * 60) + "&clock.increment=" + std::to_string(inc) + "&variant=standard";
             curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata.c_str());
             curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // kinda hacky but deals with "server certificate not ok" issue
             curl_easy_setopt(curl, CURLOPT_WRITEFUNCTION, writeFunction);
