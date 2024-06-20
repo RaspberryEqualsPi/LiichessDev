@@ -2020,6 +2020,13 @@ void createChallengePrompt() // this function is insane for something that shoul
 			char usernameBuf[22];
 			OnScreenKeyboard(usernameBuf, 21);
 			HaltGui();
+			if (ratedChoice){
+				unrated.SetState(STATE_DEFAULT);
+				rated.SetState(STATE_HELD);
+			} else {
+				rated.SetState(STATE_DEFAULT);
+				unrated.SetState(STATE_HELD);
+			}
 			mainWin.Remove(&promptWindow);
 			mainWin.SetState(STATE_DISABLED);
 			mainWin.Append(&promptWindow);
