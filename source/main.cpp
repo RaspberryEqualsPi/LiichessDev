@@ -2017,7 +2017,7 @@ void createChallengePrompt() // this function is insane for something that shoul
 			unrated.SetState(STATE_HELD);
 		}
 		if (usernameBtn.GetState() == STATE_CLICKED){
-			char usernameBuf[22];
+			char usernameBuf[22] = "";
 			OnScreenKeyboard(usernameBuf, 21);
 			HaltGui();
 			if (ratedChoice){
