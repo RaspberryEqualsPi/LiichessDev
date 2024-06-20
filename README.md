@@ -4,7 +4,9 @@
 A custom homebrew lichess client for the Nintendo Wii using the lichess API
 
 
+## License
 
+Liichess is licensed under the GPL3 license. Libwiigui also uses the GPL license and mbedtls, which is included, uses a dual Apache or GPL-2.0-or-later license. CURL uses the curl license, which is included seperately.
 
 ## Installation
 
