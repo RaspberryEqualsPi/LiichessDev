@@ -3,6 +3,8 @@
 
 A custom homebrew lichess client for the Nintendo Wii using the lichess API
 
+This is a mirror of the original repository which can be found on RaspberryEqualsPi's profile (26gy2).
+
 
 ## License
 
