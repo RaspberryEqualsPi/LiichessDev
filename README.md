@@ -10,7 +10,7 @@ Liichess is licensed under the GPL3 license. Libwiigui also uses the GPL license
 
 ## Installation
 
-If you do not want to deal with building the project yourself, there are prebuilt releases at _insert releases page here_. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, there are instructions below.
+If you do not want to deal with building the project yourself, there are prebuilt releases [here](https://github.com/RaspberryEqualsPi/LiichessDev/releases/) or on the Open Shop Channel. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, there are instructions below.
     
 ## Signing In
 
@@ -27,7 +27,7 @@ These instructions assume you have devkitPro installed already --- if you don't,
 Clone the repository:
 
 ```bash
-  git clone https://github.com/RaspberryEqualsPi/LiichessPrivate.git
+  git clone https://github.com/RaspberryEqualsPi/LiichessDev.git
 ```
 
 Go to the project directory:
