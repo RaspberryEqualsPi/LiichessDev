@@ -1,8 +1,5 @@
 // To whoever is reading this, good luck on reading my spaghetti code
 
-// TODO:
-// release!!!!!
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
