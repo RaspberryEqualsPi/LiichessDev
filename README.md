@@ -33,7 +33,7 @@ Clone the repository:
 Go to the project directory:
 
 ```bash
-  cd LiichessPrivate-master
+  cd LiichessDev
 ```
 
 There are only two dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
