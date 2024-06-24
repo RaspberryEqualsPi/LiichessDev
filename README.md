@@ -3,6 +3,8 @@
 
 A custom homebrew lichess client for the Nintendo Wii using the lichess API
 
+This is a mirror of the original repository which can be found on RaspberryEqualsPi's profile (26gy2).
+
 
 ## License
 
@@ -10,7 +12,8 @@ Liichess is licensed under the GPL3 license. Libwiigui also uses the GPL license
 
 ## Installation
 
-If you do not want to deal with building the project yourself, there are prebuilt releases [here](https://github.com/RaspberryEqualsPi/LiichessDev/releases/) or on the Open Shop Channel. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, there are instructions below.
+
+If you do not want to deal with building the project yourself, there are prebuilt releases [here](https://github.com/WiiExpand/Liichess/releases/) or on the Open Shop Channel. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, there are instructions below.
     
 ## Signing In
 
@@ -27,13 +30,13 @@ These instructions assume you have devkitPro installed already --- if you don't,
 Clone the repository:
 
 ```bash
-  git clone https://github.com/RaspberryEqualsPi/LiichessDev.git
+  git clone https://github.com/WiiExpand/Liichess.git
 ```
 
 Go to the project directory:
 
 ```bash
-  cd LiichessDev
+  cd Liichess
 ```
 
 There are only two dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
