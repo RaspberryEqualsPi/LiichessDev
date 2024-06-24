@@ -12,6 +12,7 @@ Liichess is licensed under the GPL3 license. Libwiigui also uses the GPL license
 
 ## Installation
 
+
 If you do not want to deal with building the project yourself, there are prebuilt releases [here](https://github.com/WiiExpand/Liichess/releases/) or on the Open Shop Channel. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, there are instructions below.
     
 ## Signing In

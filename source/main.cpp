@@ -1068,7 +1068,7 @@ void *gameRender(void* arg){
 				pieceSelected = false;
 			}
 			bool checker = false;
-			if (userInput[0].wpad->ir.valid && pressed & WPAD_BUTTON_A){
+			if (userInput[0].wpad->ir.valid && (pressed & WPAD_BUTTON_A)){
 				int x = userInput[0].wpad->ir.x;
 				int y = userInput[0].wpad->ir.y;
 				int x1 = ((640 - (SQUARE_SIZE * 8)) / 2) + 75; // x coord of top left square
@@ -1078,15 +1078,6 @@ void *gameRender(void* arg){
 					if (!curColor){
 						p = curBoard[((y - y1) / SQUARE_SIZE)][7 - (((x - x1) / SQUARE_SIZE))]; // if using black pieces, invert coordinates
 					}
-					std::string txt = "";
-					if (!curColor){
-						txt.push_back(7 - ((x - x1) / SQUARE_SIZE) + 'a');
-						txt.push_back(1 + ((y - y1) / SQUARE_SIZE) + '0');
-					}else{
-						txt.push_back(((x - x1) / SQUARE_SIZE) + 'a');
-						txt.push_back(8 - ((y - y1) / SQUARE_SIZE) + '0');
-					}
-					txt.push_back(p); // construct a uci move based on the data
 					if (p != '_' && !pieceSelected){ // check if the "piece" is not empty space and if another piece is not already selected
 						// If so, set the currently selected piece to the one identified here
 						pieceSelected = true;
@@ -1189,7 +1180,7 @@ void *gameRender(void* arg){
 					checker = !checker;
 				}
 			}
-			if (pieceSelected){
+			if (pieceSelected && userInput[0].wpad->ir.valid){
 				Menu_DrawImg(userInput[0].wpad->ir.x - 24, userInput[0].wpad->ir.y - 32, SQUARE_SIZE, SQUARE_SIZE, (pieces[selectedPieceIdx])->GetImage(), 0, 1, 1, 255); // draw selected piece above rest
 			}		
 			mainWin.Draw();
