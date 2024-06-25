@@ -45,7 +45,7 @@ GuiKeyboard::GuiKeyboard(char * t, u32 max)
 	focus = 0; // allow focus
 	alignmentHor = ALIGN_CENTRE;
 	alignmentVert = ALIGN_MIDDLE;
-	snprintf(kbtextstr, 255, "%s", t);
+	snprintf(kbtextstr, max, "%s", t);
 	kbtextmaxlen = max;
 
 	Key thekeys[4][11] = {
@@ -282,11 +282,13 @@ void GuiKeyboard::Update(GuiTrigger * t)
 
 	bool update = false;
 
-	if(keySpace->GetState() == STATE_CLICKED)
+	if(keySpace->GetState() == STATE_CLICKED) // modified the inside of this if statement to fix a bug in its implementation
 	{
-		if(strlen(kbtextstr) < kbtextmaxlen)
+		int len = strlen(kbtextstr);
+		if(len < kbtextmaxlen-1)
 		{
-			kbtextstr[strlen(kbtextstr)] = ' ';
+			kbtextstr[len] = ' ';
+			kbtextstr[len+1] = '\0';
 			kbText->SetText(GetDisplayText(kbtextstr)); // also fixed this
 		}
 		keySpace->SetState(STATE_SELECTED, t->chan);

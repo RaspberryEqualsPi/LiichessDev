@@ -485,7 +485,6 @@ void *chatPromptThread(void* args){ // All this does is give the user an on-scre
 	canMove = false;
 	displayBoard = false;
 	char buf[142] = "";
-	buf[141] = 0;
 	OnScreenKeyboard(buf, 141); // limit to 140 characters (lichess chat limit)
 	canMove = true;
 	displayBoard = true;
@@ -1203,6 +1202,7 @@ void *gameRender(void* arg){
 					NULL,			/* stack base */
 					16*1024,		/* stack size */
 					90				/* thread priority */ );
+				chatBtn.SetState(STATE_DEFAULT);
 			}
 			if (abortBtn.GetState() == STATE_CLICKED){
 				lichess::abortGame(gameId, tok);
