@@ -1459,10 +1459,10 @@ void boardCallback(std::string data){
 	}
 	if (curColor){
 		topElo.SetText((bElo + ", " + bAdv).c_str());
-		bottomElo.SetText((bElo + ", " + wAdv).c_str());
+		bottomElo.SetText((wElo + ", " + wAdv).c_str());
 	} else {
 		bottomElo.SetText((bElo + ", " + bAdv).c_str());
-		topElo.SetText((bElo + ", " + wAdv).c_str());
+		topElo.SetText((wElo + ", " + wAdv).c_str());
 	} // this all just displays the material disparities
 	ResumeGui();
 	// else if rollercoaster incoming!!!
