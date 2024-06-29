@@ -43,7 +43,8 @@ There are only two dependencies which need to be installed. The rest of the depe
 
 ```bash
   pacman -S ppc-freetype
-  pacman -S libvorbisidec
+  pacman -S ppc-libvorbisidec
+  pacman -S ppc-libogg
 ```
 
 Compile:
