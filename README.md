@@ -39,7 +39,7 @@ Go to the project directory:
   cd LiichessDev
 ```
 
-There are only two dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
+There are only three dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
 
 ```bash
   pacman -S ppc-freetype
