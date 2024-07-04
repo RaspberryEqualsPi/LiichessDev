@@ -30,16 +30,16 @@ These instructions assume you have devkitPro installed already --- if you don't,
 Clone the repository:
 
 ```bash
-  git clone https://github.com/RaspberryEqualsPi/LiichessDev.git
+  git clone https://github.com/WiiExpand/Liichess.git
 ```
 
 Go to the project directory:
 
 ```bash
-  cd LiichessDev
+  cd Liichess
 ```
 
-There are only two dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
+There are only three dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
 
 ```bash
   pacman -S ppc-freetype
