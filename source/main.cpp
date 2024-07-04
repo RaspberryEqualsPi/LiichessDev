@@ -1,5 +1,3 @@
-// To whoever is reading this, good luck on reading my spaghetti code
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
