@@ -210,7 +210,7 @@ int main(int argc, char **argv) {
 	mainWin = GuiWindow(640, 480);
 	mainWin.SetPosition(0,0);
 	chatLists.fields.push_back("Please be nice in chat!");
-	chatLists.fields.push_back("Chat does not autoscroll.");
+	chatLists.fields.push_back("Chat autoscrolls.");
 	chat = new GuiDisplayList(200, 248, &chatLists);
 	chat->SetPosition(0, 60);
 	chat->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
