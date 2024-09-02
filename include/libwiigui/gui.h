@@ -58,7 +58,7 @@ extern FreeTypeGX *fontSystem[];
 #define SCROLL_DELAY_LOOP		30000
 #define SCROLL_DELAY_DECREASE	300
 #define FILE_PAGESIZE 			8
-#define PAGESIZE 				8
+#define PAGESIZE 				16 // for chat boxes
 #define MAX_OPTIONS 			150
 #define MAX_KEYBOARD_DISPLAY	32
 

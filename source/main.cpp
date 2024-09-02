@@ -166,11 +166,6 @@ int main(int argc, char **argv) {
 	pointer[1] = new GuiImageData(player2_point_png);
 	pointer[2] = new GuiImageData(player3_point_png);
 	pointer[3] = new GuiImageData(player4_point_png);
-	s32 ret;
-
-	char localip[16] = {0};
-	char gateway[16] = {0};
-	char netmask[16] = {0};
 	InitVideo();
 	SetupPads();
 	AUDIO_Init(NULL);
@@ -178,33 +173,51 @@ int main(int argc, char **argv) {
 	ASND_Pause(0);
 	initPieces();
 	InitFreeType((u8*)font_ttf, font_ttf_size);
-	wiisocket_init();
-	curl_global_init(CURL_GLOBAL_DEFAULT);
-	fatInitDefault(); // quite the bit of initialization isnt it
-	if (chdir("sd:/LichessWii")){
-		mkdir("sd:/LichessWii", 0777); // if directory doesn't exist, make it
-	}
-	chdir("sd:/");
-	mainWin = GuiWindow(640, 480);
-	mainWin.SetPosition(0,0);
-	chatLists.fields.push_back("Please be nice in chat!");
-	chatLists.fields.push_back("Chat does not autoscroll.");
-	chat = new GuiDisplayList(200, 248, &chatLists);
-	chat->SetPosition(0, 60);
-	chat->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
-	// Configure the network interface
-	ret = if_config ( localip, netmask, gateway, TRUE, 20);
-	if (ret>=0) {
-		printf ("network configured, ip: %s, gw: %s, mask %s\n", localip, gateway, netmask);
+	s32 wsRet = wiisocket_init();
+	if(wsRet < -1){
+		printf("wiisocket configuration failed!\nExiting in 3 seconds.");
+		usleep(3000000);
+		exitApp();
 	} else {
-		printf ("Network configuration failed!\nExiting in 3 seconds.");
+		printf("wiisocket initialized\n");
+	}
+	if(curl_global_init(CURL_GLOBAL_DEFAULT)){
+		printf("libcurl configuration failed!\nExiting in 3 seconds.");
+		usleep(3000000);
+		exitApp();
+	} else {
+		printf("libcurl initialized\n");
+	}
+	if(!fatInitDefault()){ // quite the bit of initialization isnt it
+		printf("No suitable storage device was found. An SD card or a USB drive is required for Liichess. Exiting in 3 seconds...");
 		usleep(3000000);
 		exitApp();
 	}
-	if (access("sd:/LichessWii/token.txt", F_OK) != 0){
-		loginRender(localip);
+	/*if (!chdir("sd:/")){
+		rootDirectory = "sd:/";
+	} else if (!chdir("usb:/")){
+		rootDirectory = "usb:/";
 	} else {
-		FILE* f = fopen("sd:/LichessWii/token.txt", "rb");
+		printf("No USB or SD card detected. An SD card or a USB drive is required for Liichess. Exiting in 3 seconds...");
+		usleep(3000000);
+		exitApp();
+	}*/
+	if (chdir("/LichessWii/")){
+		mkdir("/LichessWii/", 0777); // if directory doesn't exist, make it
+	}
+	//chdir(rootDirectory.c_str());
+	chdir("/");
+	mainWin = GuiWindow(640, 480);
+	mainWin.SetPosition(0,0);
+	chatLists.fields.push_back("Please be nice in chat!");
+	chatLists.fields.push_back("Chat autoscrolls.");
+	chat = new GuiDisplayList(200, 248, &chatLists);
+	chat->SetPosition(0, 60);
+	chat->SetAlignment(ALIGN_LEFT, ALIGN_TOP);
+	if (access("/LichessWii/token.txt", F_OK) != 0){
+		loginRender(NULL);
+	} else {
+		FILE* f = fopen("/LichessWii/token.txt", "rb");
 		char c;
 		while(1) {
       		c = fgetc(f);
@@ -220,12 +233,12 @@ int main(int argc, char **argv) {
 	username = doc["username"].GetString();
 	LWP_CreateThread(	&eventStreamer_handle,	// thread handle 
 						eventStreamer,			// code 
-						localip,		// arg pointer for thread 
+						NULL,		// arg pointer for thread 
 						NULL,			// stack base 
 						16*1024,		// stack size 
 						100				// thread priority  
 					);
-	menuRender(localip);
+	menuRender(NULL);
 	while (1) {}
 	fatUnmount(0);
 	return 0;
@@ -378,12 +391,13 @@ void *loginRender(void* arg){
 			if (loginBtn.GetState() == STATE_CLICKED){
 				bool authSuccess = lichess::authenticate(username, password);
 				if (authSuccess){
-					FILE* f = fopen("sd:/LichessWii/token.txt", "wb");
+					FILE* f = fopen("/LichessWii/token.txt", "wb");
 					tok = lichess::getPersonalToken();
 					fwrite(tok.c_str(), 1, tok.size(), f);
 					fclose(f);
 					break;
 				} else {
+					unlink("/LichessWii/cookies.txt"); // empty cookie jars can cause crashes if not cleaned
 					errorExpiry = curTime + 6000;
 				}
 				loginBtn.SetState(STATE_DEFAULT);
@@ -400,8 +414,8 @@ void *signOutPromptThread(void* arg){
 	int resp = WindowPrompt("Confirm", "Are you sure you want to sign out?", "Yes", "No");
 	switch (resp){
 		case 1:
-			unlink("LichessWii/token.txt"); // delete saved login to sign out
-			unlink("LichessWii/cookies.txt");
+			unlink("/LichessWii/token.txt"); // delete saved login to sign out
+			unlink("/LichessWii/token.txt");
 			exitApp();
 		case 0:
 			break;
@@ -956,9 +970,9 @@ void *gameRender(void* arg){
 	drawBtn.SetSoundOver(&btnSoundOver);
 
 	topClock.SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
-	topClock.SetPosition(-70, 12);
+	topClock.SetPosition(-70, 16);
 	bottomClock.SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
-	bottomClock.SetPosition(-70, -9);
+	bottomClock.SetPosition(-70, -14);
 
 	topUID.SetAlignment(ALIGN_LEFT, ALIGN_TOP);
 	topUID.SetPosition(215, 5);

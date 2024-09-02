@@ -8,7 +8,7 @@
  * GUI class definitions
  ***************************************************************************/
 
-// this file has been slightly modified by 26gy2 in order to change some features of the text
+// this file has been modified by 26gy2 in order to make it more suitable for a chat box
 
 #include "gui.h"
 
@@ -63,6 +63,7 @@ GuiDisplayList::GuiDisplayList(int w, int h, DisplayList * l)
 	arrowUpBtn->SetImage(arrowUpImg);
 	arrowUpBtn->SetImageOver(arrowUpOverImg);
 	arrowUpBtn->SetAlignment(ALIGN_RIGHT, ALIGN_TOP);
+	arrowUpBtn->SetPosition(-1, 2);
 	arrowUpBtn->SetSelectable(false);
 	arrowUpBtn->SetTrigger(trigA);
 	arrowUpBtn->SetSoundOver(btnSoundOver);
@@ -73,6 +74,7 @@ GuiDisplayList::GuiDisplayList(int w, int h, DisplayList * l)
 	arrowDownBtn->SetImage(arrowDownImg);
 	arrowDownBtn->SetImageOver(arrowDownOverImg);
 	arrowDownBtn->SetAlignment(ALIGN_RIGHT, ALIGN_BOTTOM);
+	arrowDownBtn->SetPosition(-1, -2);
 	arrowDownBtn->SetSelectable(false);
 	arrowDownBtn->SetTrigger(trigA);
 	arrowDownBtn->SetSoundOver(btnSoundOver);
@@ -94,12 +96,12 @@ GuiDisplayList::GuiDisplayList(int w, int h, DisplayList * l)
 
 		optionBg[i] = new GuiImage(bgOptionsEntry);
 
-		optionBtn[i] = new GuiButton(width,30);
+		optionBtn[i] = new GuiButton(width,15);
 		optionBtn[i]->SetParent(this);
 		optionBtn[i]->SetLabel(optionVal[i], 0);
 		//optionBtn[i]->SetLabel(optionVal[i], 1);
 		//optionBtn[i]->SetImageOver(optionBg[i]);
-		optionBtn[i]->SetPosition(2,30*i+3);
+		optionBtn[i]->SetPosition(2,15*i+6);
 		optionBtn[i]->SetTrigger(trigA);
 		optionBtn[i]->SetTrigger(trig2);
 		optionBtn[i]->SetSoundClick(btnSoundClick);
@@ -231,7 +233,7 @@ void GuiDisplayList::Draw()
 			break;
 	}
 
-	//scrollbarImg->Draw();
+	scrollbarImg->Draw();
 	arrowUpBtn->Draw();
 	arrowDownBtn->Draw();
 
@@ -240,6 +242,25 @@ void GuiDisplayList::Draw()
 
 void GuiDisplayList::TriggerUpdate()
 {
+
+	listOffset = (options->fields.size() >= PAGESIZE) ? (options->fields.size() - PAGESIZE) : 0; // autoscroll
+
+		/*if(next >= 0)
+		{
+			if(selectedItem == PAGESIZE-1)
+			{
+				// move list down by 1
+				listOffset = this->FindMenuItem(listOffset, 1);
+				listChanged = true;
+			}
+			else if(optionBtn[selectedItem+1]->IsVisible())
+			{
+				optionBtn[selectedItem]->ResetState();
+				//optionBtn[selectedItem+1]->SetState(STATE_SELECTED, t->chan);
+				++selectedItem;
+			}
+		}*/
+	
 	listChanged = true;
 }
 
@@ -301,8 +322,8 @@ void GuiDisplayList::Update(GuiTrigger * t)
 	{
 		if(i != selectedItem && optionBtn[i]->GetState() == STATE_SELECTED)
 			optionBtn[i]->ResetState();
-		else if(focus && i == selectedItem && optionBtn[i]->GetState() == STATE_DEFAULT)
-			optionBtn[selectedItem]->SetState(STATE_SELECTED, t->chan);
+		//else if(focus && i == selectedItem && optionBtn[i]->GetState() == STATE_DEFAULT)
+		//	optionBtn[selectedItem]->SetState(STATE_SELECTED, t->chan);
 
 		int currChan = t->chan;
 
@@ -312,8 +333,8 @@ void GuiDisplayList::Update(GuiTrigger * t)
 		optionBtn[i]->Update(t);
 		t->chan = currChan;
 
-		if(optionBtn[i]->GetState() == STATE_SELECTED)
-			selectedItem = i;
+		//if(optionBtn[i]->GetState() == STATE_SELECTED)
+		//	selectedItem = i;
 	}
 
 	// pad/joystick navigation
@@ -322,7 +343,7 @@ void GuiDisplayList::Update(GuiTrigger * t)
 
 	if(t->Down() || arrowDownBtn->GetState() == STATE_CLICKED)
 	{
-		next = this->FindMenuItem(optionIndex[selectedItem], 1);
+		/*next = this->FindMenuItem(optionIndex[selectedItem], 1);
 
 		if(next >= 0)
 		{
@@ -338,12 +359,19 @@ void GuiDisplayList::Update(GuiTrigger * t)
 				optionBtn[selectedItem+1]->SetState(STATE_SELECTED, t->chan);
 				++selectedItem;
 			}
+		}*/
+		next = this->FindMenuItem(listOffset + PAGESIZE - 1, 1);
+		if (next >= 0){
+			listOffset = next - PAGESIZE + 1;
+			listChanged = true;
+			//selectedItem++;
 		}
 		arrowDownBtn->ResetState();
+		//listChanged = true;
 	}
 	else if(t->Up() || arrowUpBtn->GetState() == STATE_CLICKED)
 	{
-		prev = this->FindMenuItem(optionIndex[selectedItem], -1);
+		/*prev = this->FindMenuItem(optionIndex[selectedItem], -1);
 
 		if(prev >= 0)
 		{
@@ -359,6 +387,12 @@ void GuiDisplayList::Update(GuiTrigger * t)
 				optionBtn[selectedItem-1]->SetState(STATE_SELECTED, t->chan);
 				--selectedItem;
 			}
+		}*/
+		prev = this->FindMenuItem(listOffset + PAGESIZE - 1, -1);
+		if (prev >= 0 && listOffset > 0) {
+			listOffset = prev - PAGESIZE + 1;
+			listChanged = true;
+			//selectedItem--;
 		}
 		arrowUpBtn->ResetState();
 	}

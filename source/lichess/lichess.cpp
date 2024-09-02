@@ -42,7 +42,7 @@ namespace lichess{
             char* p = curl_easy_escape(curl, pass.c_str(), 0);
             std::string postdata = "username=" + std::string(u) + "&password=" + std::string(p) + "&remember=true&token=";
             curl_easy_setopt(curl, CURLOPT_URL, "https://lichess.org/login");
-            curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "sd:/LichessWii/cookies.txt");
+            curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "/LichessWii/cookies.txt");
             curl_easy_setopt(curl, CURLOPT_POST, 1L);
             curl_easy_setopt(curl, CURLOPT_POSTFIELDS, postdata.c_str());
 		    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // kinda hacky but deals with "server certificate not ok" issue
@@ -75,8 +75,8 @@ namespace lichess{
             curl_easy_setopt(curl, CURLOPT_HTTPHEADER, chunk);
             curl_easy_setopt(curl, CURLOPT_URL, "https://lichess.org/account/oauth/token/create");
             curl_easy_setopt(curl, CURLOPT_FOLLOWLOCATION, true);
-            curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "sd:/LichessWii/cookies.txt");
-            curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "sd:/LichessWii/cookies.txt");
+            curl_easy_setopt(curl, CURLOPT_COOKIEJAR, "/LichessWii/cookies.txt");
+            curl_easy_setopt(curl, CURLOPT_COOKIEFILE, "/LichessWii/cookies.txt");
             curl_easy_setopt(curl, CURLOPT_POST, 1L);
             curl_easy_setopt(curl, CURLOPT_POSTFIELDS, "description=test1&scopes%5B%5D=email%3Aread&scopes%5B%5D=preference%3Aread&scopes%5B%5D=preference%3Awrite&scopes%5B%5D=follow%3Aread&scopes%5B%5D=follow%3Awrite&scopes%5B%5D=msg%3Awrite&scopes%5B%5D=challenge%3Aread&scopes%5B%5D=challenge%3Awrite&scopes%5B%5D=challenge%3Abulk&scopes%5B%5D=tournament%3Awrite&scopes%5B%5D=puzzle%3Aread&scopes%5B%5D=racer%3Awrite&scopes%5B%5D=board%3Aplay&scopes%5B%5D=engine%3Aread&scopes%5B%5D=engine%3Awrite"); // these scopes are the necessary scopes (or planned scopes)
 		    curl_easy_setopt(curl, CURLOPT_SSL_VERIFYPEER, 0L); // kinda hacky but deals with "server certificate not ok" issue
