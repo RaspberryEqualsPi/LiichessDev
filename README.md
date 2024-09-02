@@ -5,12 +5,12 @@ A custom homebrew lichess client for the Nintendo Wii using the lichess API
 
 ## License
 
-Liichess is licensed under the GPL3 license. Libwiigui also uses the GPL license and mbedtls, which is included, uses a dual Apache or GPL-2.0-or-later license. CURL uses the curl license, which is included seperately. Rapidjson uses the MIT license, which is also included seperately.
+Liichess is licensed under the GPL3 license. Libwiigui also uses the GPL license and mbedtls, which is included, uses a dual Apache or GPL-2.0-or-later license. CURL uses the curl license, which is included separately. Rapidjson uses the MIT license, which is also included separately.
 
 ## Installation
 
 
-If you do not want to deal with building the project yourself, there are prebuilt releases [here](https://github.com/WiiExpand/Liichess/releases/) or on the Open Shop Channel. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, there are instructions below.
+If you do not want to deal with building the project yourself, there are prebuilt releases [here](https://github.com/WiiExpand/Liichess/releases/) or on the Open Shop Channel. Once you have downloaded the release, extract the zip file into the apps folder on your SD card and open the app from the homebrew channel. If you wish to build the project yourself, instructions are below.
     
 ## Signing In
 
@@ -36,7 +36,7 @@ Go to the project directory:
   cd LiichessDev
 ```
 
-There are only three dependencies which need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
+There are only three dependencies that need to be installed. The rest of the dependencies are pre-packaged in the repository for convenience. Install the necessary dependencies:
 
 ```bash
   pacman -S ppc-freetype
@@ -56,15 +56,15 @@ Finally, after the compilation has finished you should be left with the resultin
 ## Screenshots
 
 *A game in play*
-![App Screenshot](https://i.imgur.com/9eSAisb.png)
+![App Screenshot](https://i.imgur.com/qDLtO8g.png)
 
 *The main menu*
-![App Screenshot](https://i.imgur.com/MQMY47D.png)
+![App Screenshot](https://i.imgur.com/X2vkYn7.png)
 
 *Creating a challenge*
-![App Screenshot](https://i.imgur.com/4hfPP9O.png)
+![App Screenshot](https://i.imgur.com/zHz88z2.png)
 
-*The sign in screen*
-![App Screenshot](https://i.imgur.com/VMXNI6h.png)
+*The sign-in screen*
+![App Screenshot](https://i.imgur.com/GLPyqs4.png)
 
 
